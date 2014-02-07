@@ -8,10 +8,11 @@ Un générateur de site structuré en markdown pour un écrire rapidement un sui
 * Utiliser le script d'init pour générer la base markdown
 * Ajouter du contenu dans les fichiers markdown générés
 * Générer le site à l'aide du script compiler afin de convertir en HTML le contenu du site
-* Chaque page est une semaine de stage (du lundi au vendredi)
+* Profit !
 
 ## Fonctionnalités 
 * L'acceuil du site est générée automatiquement
+* Chaque page est une semaine de stage (du lundi au vendredi)
 * Une page sera générée pour contenir le contenu de toutes les semaines
 * Intégration automatique du thème de base Bootstrap
 
