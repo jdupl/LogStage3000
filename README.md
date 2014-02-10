@@ -23,4 +23,4 @@ Un générateur de site structuré en markdown pour un écrire rapidement un sui
 
 
 ### Exemple d'un site généré
-En temps normal, mon [log de stage](http://stage.jduplessis.me) devrait être à jour avec ce générateur (dès la première version fonctionnelle). 
+En temps normal, un [site de démo](http://stages.montmoinfo.org) devrait être à jour avec ce générateur. 
