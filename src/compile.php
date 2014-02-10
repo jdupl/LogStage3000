@@ -41,6 +41,8 @@ echo "Voici la liste des fichiers sources à traiter:\n";
 foreach ($fichiers_sources as $fic) {
     echo "$fic\n";
 }
+echo "Génération d'un index à partir des sources\n";
+echo "Génération d'une page intégrale à partir des sources\n";
 
 echo "\nEst-ce correct ? [O\\n]?";
 $user_conf = fgets(STDIN);
@@ -68,9 +70,22 @@ foreach ($fichiers_sources as $fic) {
     }
     $html_body = Michelf\Markdown::defaultTransform($markdown);
     $fic_sortie = sprintf("%s%s.html", CHEMIN_HTML, $fic_base);
-    file_put_contents( $fic_sortie, "$header_html$html_body$footer_html");
+    file_put_contents( $fic_sortie, "{$header_html}{$html_body}{$footer_html}");
     echo "Complété!\n";
 }
+
+echo "Génération de l'index du site... ";
+$index_body = genereIndexBody();
+$fic_sortie = sprintf("%sindex.html", CHEMIN_HTML);
+file_put_contents( $fic_sortie, "{$header_html}{$index_body}{$footer_html}");
+echo "Complété!\n";
+
+echo "Génération de la page intégrale du site... ";
+#$tout_body = Michelf\Markdown::defaultTransform($tout_markdown);
+$tout_body = genereToutBody($tout_markdown);
+$fic_sortie = sprintf("%stout.html", CHEMIN_HTML);
+file_put_contents( $fic_sortie, "{$header_html}{$tout_body}{$footer_html}");
+echo "Complété!\n";
 
 function getHtmlHeader() {
 
@@ -92,8 +107,7 @@ function getHtmlFooter() {
 
     $html = sprintf(
 '
-<p>Site généré le %s </p>
-<p>Par <a href="https://github.com/drfoliberg/LogStage3000"> LogStage3000 %s </a></p>
+<p>Site généré le %s avec <a href="https://github.com/drfoliberg/LogStage3000"> LogStage3000 %s </a></p>
 <p>Fait avec <a href="http://daringfireball.net/projects/markdown/" >Markdown</a> et <a href="http://getbootstrap.com/">Bootstrap</a> </p>
 </div>'
     ,$maintenant, VERSION);
@@ -106,6 +120,65 @@ function getCss() {
         $html_css = sprintf('<link href="%s" rel="stylesheet" type="text/css">', CHEMIN_CSS);
     }
     return $html_css;
+}
+
+function genereIndexBody() {
+    $markdown = sprintf(
+"# %s
+
+## %s
+
+---
+
+%s
+
+---
+
+## Navigation
+", NOM_DU_SITE, NOM_DU_STAGIAIRE, MESSAGE_ACCEUIL);
+
+    for ($i = 1; $i <= NB_SEMAINES; $i++) {
+        $markdown .= 
+"* [Semaine {$i}](semaine{$i}.html)
+";
+    }
+    $markdown .= 
+"
+#### [Toutes les semaines](tout.html)
+
+---
+";
+    $html_body = Michelf\Markdown::defaultTransform($markdown);
+    return $html_body;
+    
+}
+
+function genereToutBody($md_body) {
+    $markdown = sprintf(
+"# %s
+
+## Toutes les semaines
+
+---
+
+[Retour à la page d'acceuil](index.html)
+
+---
+
+%s
+
+---
+
+[Haut de page](#)
+
+[Retour à la page d'acceuil](index.html)
+
+---
+
+", NOM_DU_SITE, $md_body );
+    $html_body = Michelf\Markdown::defaultTransform($markdown);
+    return $html_body;
+    
 }
 
 ?>
