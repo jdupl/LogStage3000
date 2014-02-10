@@ -66,6 +66,8 @@ function genereSemaine($dateDebut, $dateFin, $numeroSemaine) {
 
 EOT;
 
+    $str .= genereNavigation($numeroSemaine);
+
     foreach($dates_str as $date_str) {
         $str.= <<< EOT
 
@@ -79,33 +81,41 @@ EOT;
 ---
 
 EOT;
+
+    $str .= genereNavigation($numeroSemaine);
+
+    return $str;
+}
+
+function genereNavigation($numeroSemaine) {
     $prec = $numeroSemaine - 1;
     $suiv = $numeroSemaine + 1;
+    
+    $navigation = "";
 
-    if ($prec > 1) {
-        $str .= <<< EOT
+    if ($suiv <= NB_SEMAINES) {
+        $navigation .= <<< EOT
+
+[Semaine suivante](semaine{$suiv}.html)
+
+EOT;
+    }
+    
+    if ($prec > 0) {
+        $navigation .= <<< EOT
 
 [Semaine précédente](semaine{$prec}.html)
 
 EOT;
     }
 
-    if($suiv <= NB_SEMAINES) {
-        $str .= <<< EOT
-
-[Semaine suivante](semaine{$suiv}.html)
-
-EOT;
-    }
-
-    $str .= <<< EOT
+    $navigation .= <<< EOT
 
 [Retour à la page d'acceuil](index.html)
 
 ---
 
 EOT;
-
-    return $str;
+    return $navigation;
 }
 ?>

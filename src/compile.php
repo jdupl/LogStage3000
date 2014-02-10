@@ -63,16 +63,14 @@ foreach ($fichiers_sources as $fic) {
     echo "Traitement de $fic_base... ";
     $markdown = file_get_contents($fic);
     $tmp = explode("---", $markdown);
-	if(count($tmp) === 4){
-		$tout_markdown .= $tmp[1];
-	}
+    if (count($tmp) === 5) {
+        $tout_markdown .= $tmp[2];
+    }
     $html_body = Michelf\Markdown::defaultTransform($markdown);
     $fic_sortie = sprintf("%s%s.html", CHEMIN_HTML, $fic_base);
-	file_put_contents( $fic_sortie, "$header_html$html_body$footer_html");
+    file_put_contents( $fic_sortie, "$header_html$html_body$footer_html");
     echo "Complété!\n";
 }
-
-
 
 function getHtmlHeader() {
 
@@ -84,7 +82,7 @@ function getHtmlHeader() {
 </head>
 <div class="container">'
     , getCss() );
-	return $html;
+    return $html;
 }
 
 function getHtmlFooter() {
@@ -99,7 +97,7 @@ function getHtmlFooter() {
 <p>Fait avec <a href="http://daringfireball.net/projects/markdown/" >Markdown</a> et <a href="http://getbootstrap.com/">Bootstrap</a> </p>
 </div>'
     ,$maintenant, VERSION);
-	return $html;
+    return $html;
 }
 
 function getCss() {
