@@ -62,13 +62,13 @@ foreach ($fichiers_sources as $fic) {
     $fic_base = basename($fic, ".txt");
     echo "Traitement de $fic_base... ";
     $markdown = file_get_contents($fic);
-    $tmp = explode("---",$markdown);
+    $tmp = explode("---", $markdown);
 	if(count($tmp) === 4){
 		$tout_markdown .= $tmp[1];
 	}
     $html_body = Michelf\Markdown::defaultTransform($markdown);
-    #$out = "$path_output$f_name.html";
-	#file_put_contents( $out,"$header_html$html_body$footer");
+    $fic_sortie = sprintf("%s%s.html", CHEMIN_HTML, $fic_base);
+	file_put_contents( $fic_sortie, "$header_html$html_body$footer_html");
     echo "Complété!\n";
 }
 
@@ -84,6 +84,7 @@ function getHtmlHeader() {
 </head>
 <div class="container">'
     , getCss() );
+	return $html;
 }
 
 function getHtmlFooter() {
@@ -91,13 +92,14 @@ function getHtmlFooter() {
     date_default_timezone_set('America/Montreal');
     $maintenant = (new Datetime('now'))->format('Y-m-d à H:i:s');
 
-    $footer = sprintf(
+    $html = sprintf(
 '
 <p>Site généré le %s </p>
-<p>Par <a href="https://github.com/drfoliberg/LogStage3000"LogStage3000 %s</a></p>
+<p>Par <a href="https://github.com/drfoliberg/LogStage3000"> LogStage3000 %s </a></p>
 <p>Fait avec <a href="http://daringfireball.net/projects/markdown/" >Markdown</a> et <a href="http://getbootstrap.com/">Bootstrap</a> </p>
 </div>'
     ,$maintenant, VERSION);
+	return $html;
 }
 
 function getCss() {

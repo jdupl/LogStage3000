@@ -10,6 +10,6 @@ define("CHEMIN_LIB_MARKDOWN", "../lib/Michelf/Markdown.inc.php");
 define("CHEMIN_CSS", "/css/bootstrap.min.css"); # mettre à false pour ne pas utiliser de CSS
 
 # constantes du programme
-define("VERSION", "v0.0.0-aplha")
+define("VERSION", "v0.0.0-alpha")
 
 ?>
