@@ -6,8 +6,14 @@ Un générateur de site structuré en markdown pour un écrire rapidement un sui
 ## Fonctionnement général
 * Remplacer les variables dans le fichier prévu à cet effet pour avoir les bons chemins et paramètres de génération
 * Utiliser le script d'init pour générer la base markdown
+```
+php src/init.php
+```
 * Ajouter du contenu dans les fichiers markdown générés
 * Générer le site à l'aide du script compiler afin de convertir en HTML le contenu du site
+```
+php src/compile.php
+```
 * Profit !
 
 ## Fonctionnalités 
